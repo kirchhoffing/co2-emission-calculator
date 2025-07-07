@@ -18,4 +18,5 @@
 
 body {
   @apply bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100 font-sans;
+  padding-top: 4rem; /* Height of the navbar (h-16 = 4rem) */
 }

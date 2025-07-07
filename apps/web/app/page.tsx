@@ -6,21 +6,6 @@ import React from 'react';
 
 // --- Stub Components (move to packages/ui later) ---
 
-// Header: Logo + Nav
-const Header = () => (
-  <header className="flex items-center justify-between py-6 px-4 md:px-12 bg-white dark:bg-neutral-900 border-b border-slate-100 dark:border-neutral-800">
-    <div className="flex items-center gap-2">
-      {/* Logo/Icon */}
-      <img src="/co2-main-logo.png" alt="CO2 Emission Calculator Logo" className="inline-block w-8 h-8 rounded-full bg-white dark:bg-neutral-900" />
-      <span className="ml-2 text-xl font-bold text-slate-800 dark:text-emerald-400">CO2 Emission Calculator</span>
-    </div>
-    <nav className="flex items-center gap-4">
-      <a href="/auth/login" className="text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded px-2">Login</a>
-      <Button as="a" href="/auth/signup" variant="primary">Sign Up</Button>
-    </nav>
-  </header>
-);
-
 // Button: Primary/Secondary variants
 const Button = ({ as = 'button', href, variant = 'primary', children, ...props }) => {
   const base =
@@ -74,13 +59,13 @@ const Footer = () => (
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-900 dark">
-      <Header />
+      {/* <Header /> */}
 
       {/* Hero Section - Centered Content */}
       <section className="flex flex-col items-center justify-center text-center gap-8 py-24 px-4 md:px-12 bg-emerald-50 dark:bg-neutral-800 border-b border-slate-100 dark:border-neutral-700">
         <div className="max-w-xl">
           <h1 className="text-3xl md:text-5xl font-bold text-slate-800 dark:text-emerald-300 mb-6">
-            Track and Report Your Business's CO2 Emissions
+            Track and Report Your Business&apos;s CO2 Emissions
           </h1>
           <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-300 mb-8">
             Simple, accurate, and compliant carbon accounting for modern organizations.
