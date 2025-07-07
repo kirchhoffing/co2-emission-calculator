@@ -24,7 +24,6 @@ IMPORTANT NOTES FOR AI ASSISTANTS
 * Use Drizzle Kit for migrations.
 * Shared logic like CO2 calculation must go under "packages/core"
 * Tailwind CSS is used for styling. Do not use styled-components or CSS modules.
-* Use only next-i18next for localization.
 * Use GitHub Actions for CI. Do not introduce new CI tools.
 * Do not add or duplicate anything that already exists.
 
@@ -51,7 +50,6 @@ MODULE STATUS (AS OF NOW)
 * JSON export for XBRL: Not implemented
 * Emission factor importer: Implemented or planned already
 * Auth: Not implemented (use Auth.js only)
-* i18n: Partially implemented (next-i18next, de and en only)
 * Charting: Partially implemented (use TanStack Charts only)
 * Email sending (PDF reports): Not implemented (will use Resend)
 
@@ -87,7 +85,6 @@ DO NOT DO THIS
 
 * Do not use Prisma
 * Do not use styled-components or CSS Modules
-* Do not use other i18n frameworks
 * Do not use non-TypeScript languages
 * Do not create extra folder structures
 * Do not create duplicate versions of existing logic
@@ -102,6 +99,54 @@ CONTINUE WORK LIKE THIS
 * Follow existing file layout strictly
 * Use strict TypeScript typing
 * Follow formatting and linting rules already defined
+
+------------------------------
+
+PAGE STRUCTURE AND UI/UX ARCHITECTURE
+
+MAIN APPLICATION ROUTES:
+* Public: /, /auth/*, /privacy, /terms
+* Dashboard: /dashboard (main overview)
+* Calculator: /calculator, /calculator/scope-1, /calculator/scope-2, /calculator/scope-3
+* Data Management: /import, /import/energy, /import/fuel
+* Reporting: /reports, /reports/[reportId], /analytics
+* User: /profile, /privacy-center, /help
+* Admin: /admin, /admin/audit-log, /admin/users, /admin/emission-factors
+
+REUSABLE UI COMPONENTS (packages/ui):
+* Form: EmissionInput, FuelTypeSelector, DateRangePicker, UnitConverter, FormWizard
+* Display: EmissionCard, DataTable, ChartContainer, AuditLogEntry, ReportPreview
+* Layout: DashboardLayout, PublicLayout, AdminLayout, Modal, Sidebar, Header
+* Utility: LoadingSpinner, ErrorBoundary, ConfirmDialog, Tooltip, LanguageToggle
+
+FORM VALIDATION STRATEGY:
+* TanStack Form + Zod schemas for all user inputs
+* Real-time validation with accessibility support
+* Progressive error disclosure
+* Auto-save for long calculation forms
+* Multi-step wizard validation
+
+DATA ARCHITECTURE:
+* Emissions data by scope (1, 2, partial 3)
+* Calculation history with full audit trail
+* Report templates and generated outputs
+* User/company management with GDPR compliance
+* Emission factors database with regular updates
+
+MOBILE & ACCESSIBILITY:
+* Mobile-first responsive design
+* WCAG 2.1 AA compliance
+* Touch-friendly interfaces (44px minimum)
+* Keyboard navigation support
+* Screen reader optimization
+* High contrast mode support
+
+GDPR COMPLIANCE FEATURES:
+* Privacy center with data export/deletion
+* Audit logging for all data changes
+* Consent management system
+* Data anonymization capabilities
+* Regular compliance reporting
 
 ------------------------------
 
