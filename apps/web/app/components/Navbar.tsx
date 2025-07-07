@@ -1,4 +1,4 @@
-// Purpose: Responsive, reusable Navbar for all pages in the CO2 Emission Calculator app.
+// Purpose: Responsive, reusable Navbar for all pages in TheGreenScope app.
 // Uses Tailwind CSS for styling and next/link for navigation.
 
 import Link from "next/link";
@@ -22,14 +22,14 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3">
             <Image
               src="/co2-main-logo.png"
-              alt="CO2 Emission Calculator Logo"
+              alt="TheGreenScope Logo"
               width={36}
               height={36}
               priority
               className="rounded-full bg-white p-1 shadow"
             />
             <span className="text-xl font-bold text-white tracking-tight hidden sm:inline">
-              CO2 Emission Calculator
+              TheGreenScope
             </span>
           </Link>
         </div>

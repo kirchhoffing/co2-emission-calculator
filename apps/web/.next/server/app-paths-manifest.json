@@ -1,6 +1,6 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
-  "/page": "app/page.js",
-  "/register/page": "app/register/page.js",
-  "/login/page": "app/login/page.js"
+  "/calculator/page": "app/calculator/page.js",
+  "/calculator/scope-2/page": "app/calculator/scope-2/page.js",
+  "/calculator/scope-3/page": "app/calculator/scope-3/page.js",
+  "/page": "app/page.js"
 }

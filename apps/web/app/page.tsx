@@ -44,7 +44,7 @@ const HowItWorksStep = ({ step, icon, title, description }) => (
 // Footer: Links
 const Footer = () => (
   <footer className="mt-16 py-8 px-4 md:px-12 bg-slate-50 border-t border-slate-100 text-slate-500 text-sm flex flex-col md:flex-row items-center justify-between gap-2">
-    <div>&copy; {new Date().getFullYear()} CO2 Emission Calculator</div>
+    <div>&copy; {new Date().getFullYear()} The Green Scope</div>
     <nav className="flex gap-4">
       <a href="/privacy" className="hover:text-emerald-600 underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Privacy</a>
       <a href="/terms" className="hover:text-emerald-600 underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Terms</a>
