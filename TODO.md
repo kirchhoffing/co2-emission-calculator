@@ -143,44 +143,44 @@
 ## DONE
 
 ### ✅ Project Foundation
-- [x] **Monorepo setup** - pnpm workspace with apps/web, packages/core, packages/ui ([package.json](package.json), [pnpm-workspace.yaml](pnpm-workspace.yaml))
-- [x] **TypeScript configuration** - Strict TypeScript setup across all packages ([tsconfig.json](tsconfig.json), [apps/web/tsconfig.json](apps/web/tsconfig.json))
-- [x] **Next.js App Router** - Modern React framework with app directory structure ([apps/web/app/](apps/web/app/), [next.config.ts](next.config.ts))
-- [x] **TailwindCSS setup** - Utility-first CSS framework configuration ([apps/web/tailwind.config.js](apps/web/tailwind.config.js), [postcss.config.js](postcss.config.js))
-- [x] **Package structure** - Proper separation of concerns between packages ([apps/](apps/), [packages/](packages/), [db/](db/))
+- [x] **Monorepo setup** - pnpm workspace with apps/web, packages/core, packages/ui ([pnpm-workspace.yaml](pnpm-workspace.yaml))
+- [x] **TypeScript configuration** - Strict TypeScript setup across all packages ([tsconfig.json](tsconfig.json))
+- [x] **Next.js App Router** - Modern React framework with app directory structure ([next.config.ts](next.config.ts))
+- [x] **TailwindCSS setup** - Utility-first CSS framework configuration ([apps/web/tailwind.config.js](apps/web/tailwind.config.js))
+- [x] **Package structure** - Proper separation of concerns between packages ([apps/](apps/))
 
 ### ✅ Database Schema
-- [x] **Complete database schema** - All tables designed with Drizzle ORM ([db/schema.ts](db/schema.ts), [db/drizzle.config.ts](db/drizzle.config.ts))
-- [x] **User management tables** - Users, companies, roles with GDPR fields ([db/schema.ts](db/schema.ts#L9-L25))
-- [x] **Emission calculation tables** - Calculations, factors, audit trails ([db/schema.ts](db/schema.ts#L27-L74))
-- [x] **Report generation tables** - Reports with multiple format support ([db/schema.ts](db/schema.ts#L75-L92))
-- [x] **Data import tables** - Import sessions and error tracking ([db/schema.ts](db/schema.ts#L103-L117))
-- [x] **Audit logging table** - Complete audit trail for compliance ([db/schema.ts](db/schema.ts#L93-L102))
-- [x] **Proper relationships** - Foreign keys and relations properly defined ([db/schema.ts](db/schema.ts#L119-L194))
+- [x] **Complete database schema** - All tables designed with Drizzle ORM ([db/schema.ts](db/schema.ts))
+- [x] **User management tables** - Users, companies, roles with GDPR fields ([db/schema.ts](db/schema.ts))
+- [x] **Emission calculation tables** - Calculations, factors, audit trails ([db/schema.ts](db/schema.ts))
+- [x] **Report generation tables** - Reports with multiple format support ([db/schema.ts](db/schema.ts))
+- [x] **Data import tables** - Import sessions and error tracking ([db/schema.ts](db/schema.ts))
+- [x] **Audit logging table** - Complete audit trail for compliance ([db/schema.ts](db/schema.ts))
+- [x] **Proper relationships** - Foreign keys and relations properly defined ([db/schema.ts](db/schema.ts))
 
 ### ✅ Core Calculation Engine
 - [x] **EmissionCalculator class** - Full-featured calculation engine ([packages/core/src/calculator.ts](packages/core/src/calculator.ts))
-- [x] **Scope 1, 2, 3 support** - All emission scopes implemented ([packages/core/src/calculator.ts](packages/core/src/calculator.ts#L121-L224))
-- [x] **Emission factor management** - Factor loading and retrieval ([packages/core/src/calculator.ts](packages/core/src/calculator.ts#L16-L30))
+- [x] **Scope 1, 2, 3 support** - All emission scopes implemented ([packages/core/src/calculator.ts](packages/core/src/calculator.ts))
+- [x] **Emission factor management** - Factor loading and retrieval ([packages/core/src/calculator.ts](packages/core/src/calculator.ts))
 - [x] **Unit conversion system** - Automatic unit conversion between compatible units ([packages/core/src/utils/unitConversion.ts](packages/core/src/utils/unitConversion.ts))
-- [x] **Uncertainty calculations** - Range calculations for emission estimates ([packages/core/src/calculator.ts](packages/core/src/calculator.ts#L274-L292))
-- [x] **Batch processing** - Calculate multiple inputs efficiently ([packages/core/src/calculator.ts](packages/core/src/calculator.ts#L313-L326))
-- [x] **Error handling** - Robust error handling with detailed messages ([packages/core/src/calculator.ts](packages/core/src/calculator.ts#L69-L82))
-- [x] **Validation system** - Input validation with Zod schemas ([packages/core/src/types.ts](packages/core/src/types.ts#L115-L133))
+- [x] **Uncertainty calculations** - Range calculations for emission estimates ([packages/core/src/calculator.ts](packages/core/src/calculator.ts))
+- [x] **Batch processing** - Calculate multiple inputs efficiently ([packages/core/src/calculator.ts](packages/core/src/calculator.ts))
+- [x] **Error handling** - Robust error handling with detailed messages ([packages/core/src/calculator.ts](packages/core/src/calculator.ts))
+- [x] **Validation system** - Input validation with Zod schemas ([packages/core/src/types.ts](packages/core/src/types.ts))
 
 ### ✅ Type System & Validation
-- [x] **Zod schemas** - Complete type definitions for all data structures ([packages/core/src/types.ts](packages/core/src/types.ts#L23-L70))
-- [x] **TypeScript types** - Type-safe development across the entire codebase ([packages/core/src/types.ts](packages/core/src/types.ts#L72-L83))
-- [x] **Validation helpers** - Reusable validation functions ([packages/core/src/types.ts](packages/core/src/types.ts#L115-L133))
-- [x] **Enum definitions** - Proper enums for scopes, categories, statuses ([packages/core/src/types.ts](packages/core/src/types.ts#L3-L21))
-- [x] **Unit type system** - Comprehensive unit conversion type definitions ([packages/core/src/types.ts](packages/core/src/types.ts#L96-L113))
+- [x] **Zod schemas** - Complete type definitions for all data structures ([packages/core/src/types.ts](packages/core/src/types.ts))
+- [x] **TypeScript types** - Type-safe development across the entire codebase ([packages/core/src/types.ts](packages/core/src/types.ts))
+- [x] **Validation helpers** - Reusable validation functions ([packages/core/src/types.ts](packages/core/src/types.ts))
+- [x] **Enum definitions** - Proper enums for scopes, categories, statuses ([packages/core/src/types.ts](packages/core/src/types.ts))
+- [x] **Unit type system** - Comprehensive unit conversion type definitions ([packages/core/src/types.ts](packages/core/src/types.ts))
 
 ### ✅ UI Component Foundation
 - [x] **PublicLayout** - Layout for marketing and public pages ([packages/ui/src/layout/PublicLayout.tsx](packages/ui/src/layout/PublicLayout.tsx))
 - [x] **DashboardLayout** - Layout for authenticated dashboard pages ([packages/ui/src/layout/DashboardLayout.tsx](packages/ui/src/layout/DashboardLayout.tsx))
 - [x] **FormWizard** - Multi-step form component with validation ([packages/ui/src/form/FormWizard.tsx](packages/ui/src/form/FormWizard.tsx))
 - [x] **FuelTypeSelector** - Comprehensive fuel selection component ([packages/ui/src/form/FuelTypeSelector.tsx](packages/ui/src/form/FuelTypeSelector.tsx))
-- [x] **Responsive design** - Mobile-first approach with dark mode support ([apps/web/app/globals.css](apps/web/app/globals.css), [packages/ui/src/](packages/ui/src/))
+- [x] **Responsive design** - Mobile-first approach with dark mode support ([apps/web/app/globals.css](apps/web/app/globals.css))
 
 ### ✅ Basic Application Pages
 - [x] **Home page** - Landing page with features and call-to-action ([apps/web/app/page.tsx](apps/web/app/page.tsx))
@@ -190,22 +190,22 @@
 - [x] **Scope 1 calculator** - Complete multi-step calculator with validation ([apps/web/app/calculator/scope-1/page.tsx](apps/web/app/calculator/scope-1/page.tsx))
 
 ### ✅ Styling & Design System
-- [x] **Dark mode support** - Complete dark/light theme implementation ([apps/web/app/globals.css](apps/web/app/globals.css), component files)
+- [x] **Dark mode support** - Complete dark/light theme implementation ([apps/web/app/globals.css](apps/web/app/globals.css))
 - [x] **Consistent color palette** - Emerald-based theme with proper contrast ([apps/web/tailwind.config.js](apps/web/tailwind.config.js))
 - [x] **Typography system** - Consistent text sizing and hierarchy ([apps/web/app/globals.css](apps/web/app/globals.css))
 - [x] **Component styling** - Reusable styling patterns and utilities ([packages/ui/src/](packages/ui/src/))
 - [x] **Responsive breakpoints** - Mobile, tablet, desktop breakpoints ([apps/web/tailwind.config.js](apps/web/tailwind.config.js))
 
 ### ✅ tRPC Infrastructure
-- [x] **tRPC setup** - Server and client configuration ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts), [apps/web/lib/trpc.ts](apps/web/lib/trpc.ts))
+- [x] **tRPC setup** - Server and client configuration ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts))
 - [x] **Router structure** - Organized API route structure ([apps/web/server/api/root.ts](apps/web/server/api/root.ts))
 - [x] **Type safety** - End-to-end type safety between frontend and backend ([apps/web/server/api/](apps/web/server/api/))
-- [x] **Superjson integration** - Serialization for complex data types ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts#L5))
+- [x] **Superjson integration** - Serialization for complex data types ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts))
 
 ### ✅ Development Tools
 - [x] **ESLint configuration** - Code quality and consistency rules ([eslint.config.mjs](eslint.config.mjs))
 - [x] **PostCSS setup** - CSS processing with Tailwind integration ([postcss.config.js](postcss.config.js))
-- [x] **Package.json scripts** - Development, build, and start scripts ([apps/web/package.json](apps/web/package.json#L31-L39))
+- [x] **Package.json scripts** - Development, build, and start scripts ([apps/web/package.json](apps/web/package.json))
 - [x] **Workspace configuration** - Proper monorepo package linking ([pnpm-workspace.yaml](pnpm-workspace.yaml))
 
 ---
