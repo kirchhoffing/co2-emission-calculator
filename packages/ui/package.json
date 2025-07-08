@@ -1,0 +1,29 @@
+{
+  "name": "ui",
+  "version": "1.0.0",
+  "description": "Shared UI components for CO2 Emission Calculator",
+  "main": "index.js",
+  "module": "index.ts",
+  "scripts": {
+    "dev": "echo 'UI package - no dev script needed'",
+    "build": "echo 'UI package - no build script needed'"
+  },
+  "dependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "@tanstack/react-form": "^1.14.1",
+    "chart.js": "^4.5.0",
+    "react-chartjs-2": "^5.3.0",
+    "zod": "^3.25.71"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "packageManager": "pnpm@10.8.1"
+} 

@@ -1,5 +1,7 @@
-// Purpose: /calculator landing page with navigation to Scope 1, 2, 3 calculators
+'use client';
+
 import Link from 'next/link';
+import { PublicLayout } from 'ui';
 
 // Card component styled to match global theme
 function CalculatorCard({ title, description, href }: { title: string; description: string; href: string }) {
@@ -16,7 +18,7 @@ function CalculatorCard({ title, description, href }: { title: string; descripti
 
 export default function CalculatorPage() {
   return (
-    <>
+    <PublicLayout>
       <div className="max-w-xl mx-auto text-center my-12">
         <h1 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-emerald-300 mb-6">
           CO₂ Emission Calculator
@@ -42,6 +44,6 @@ export default function CalculatorPage() {
           href="/calculator/scope-3"
         />
       </div>
-    </>
+    </PublicLayout>
   );
 } 

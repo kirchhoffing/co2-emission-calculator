@@ -1,8 +1,7 @@
-// Home page for CO2 Emission Calculator
-// Purpose: Welcomes users, explains value, and guides to sign up or start calculating
-// Uses inline stub components for now; extract to packages/ui later
+'use client';
 
 import React from 'react';
+import { PublicLayout } from 'ui';
 
 // --- Stub Components (move to packages/ui later) ---
 
@@ -41,28 +40,13 @@ const HowItWorksStep = ({ step, icon, title, description }) => (
   </div>
 );
 
-// Footer: Links
-const Footer = () => (
-  <footer className="mt-16 py-8 px-4 md:px-12 bg-slate-50 border-t border-slate-100 text-slate-500 text-sm flex flex-col md:flex-row items-center justify-between gap-2">
-    <div>&copy; {new Date().getFullYear()} The Green Scope</div>
-    <nav className="flex gap-4">
-      <a href="/privacy" className="hover:text-emerald-600 underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Privacy</a>
-      <a href="/terms" className="hover:text-emerald-600 underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Terms</a>
-      <a href="/help" className="hover:text-emerald-600 underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Help</a>
-      <a href="/accessibility" className="hover:text-emerald-600 underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Accessibility</a>
-    </nav>
-  </footer>
-);
-
 // --- Main Home Page ---
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col bg-white dark:bg-neutral-900 dark">
-      {/* <Header /> */}
-
+    <PublicLayout className="bg-white dark:bg-neutral-900">
       {/* Hero Section - Centered Content */}
-      <section className="flex flex-col items-center justify-center text-center gap-8 py-24 px-4 md:px-12 bg-emerald-50 dark:bg-neutral-800 border-b border-slate-100 dark:border-neutral-700">
+      <section className="flex flex-col items-center justify-center text-center gap-8 py-24 px-4 md:px-12 bg-emerald-50 dark:bg-neutral-800 border-b border-slate-100 dark:border-neutral-700 -mx-4 -mt-8">
         <div className="max-w-xl">
           <h1 className="text-3xl md:text-5xl font-bold text-slate-800 dark:text-emerald-300 mb-6">
             Track and Report Your Business&apos;s CO2 Emissions
@@ -70,7 +54,7 @@ export default function HomePage() {
           <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-300 mb-8">
             Simple, accurate, and compliant carbon accounting for modern organizations.
           </p>
-          <Button as="a" href="/auth/signup" variant="primary" aria-label="Get Started">
+          <Button as="a" href="/calculator" variant="primary" aria-label="Get Started">
             Get Started
           </Button>
         </div>
@@ -138,15 +122,13 @@ export default function HomePage() {
       {/* Call to Action Section */}
       <section className="py-16 px-4 md:px-12 bg-emerald-50 dark:bg-neutral-800 text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-slate-800 dark:text-emerald-200 mb-6">Ready to get started?</h2>
-        <Button as="a" href="/auth/signup" variant="primary" aria-label="Get Started">
+        <Button as="a" href="/calculator" variant="primary" aria-label="Get Started">
           Get Started
         </Button>
         <div className="mt-4">
           <a href="/help" className="text-emerald-700 dark:text-emerald-300 hover:underline focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded">Learn More</a>
         </div>
       </section>
-
-      <Footer />
-    </div>
+    </PublicLayout>
   );
 }

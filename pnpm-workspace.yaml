@@ -1,6 +1,7 @@
 packages:
   - 'apps/web'
   - 'packages/core'
+  - 'packages/ui'
   - 'db'
   - 'scripts'
   - 'tests' 
