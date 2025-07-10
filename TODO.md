@@ -11,22 +11,18 @@
 - [ ] **Session management** - Handle login/logout with proper token management
 
 ### 🛢️ Database & Backend
-- [ ] **Set up database connection** - Configure PostgreSQL connection using Kysely
-- [ ] **Run initial migrations** - Execute Drizzle migrations to create tables
-- [ ] **Implement tRPC routers** - Create missing API endpoints:
+- [ ] **Implement additional tRPC routers** - Create remaining API endpoints:
   - [ ] Authentication router (login, register, profile)
   - [ ] Companies router (CRUD operations)
   - [ ] Users router (user management)
   - [ ] Audit log router (compliance tracking)
   - [ ] Data import router (CSV/Excel processing)
+- [ ] **Add database integration to existing routers** - Connect calculations, emissionFactors, and reports routers to database
 - [ ] **Add data validation middleware** - Implement Zod validation for all inputs
 - [ ] **Create emission factors seeder** - Import standard emission factors from EPA/IPCC
 - [ ] **Implement audit logging** - Track all data changes for GDPR compliance
 
 ### 📱 Core Application Pages
-- [ ] **Dashboard page** (`/dashboard`) - Main overview with charts and recent calculations
-- [ ] **Scope 2 calculator page** (`/calculator/scope-2`) - Electricity, steam, heating/cooling
-- [ ] **Scope 3 calculator page** (`/calculator/scope-3`) - Business travel, commuting, waste
 - [ ] **Reports listing page** (`/reports`) - Display all generated reports
 - [ ] **Report detail page** (`/reports/[reportId]`) - View individual report with export options
 - [ ] **Analytics page** (`/analytics`) - Trends, comparisons, and insights
@@ -72,7 +68,6 @@
 - [ ] **Interactive dashboards** - Filterable, drilldown analytics
 
 ### 📄 Report Generation
-- [ ] **PDF report generation** - Implement react-pdf for PDF creation
 - [ ] **Report templates** - Create standardized report layouts
 - [ ] **JSON export** - Structured data export for XBRL/APIs
 - [ ] **CSV export** - Tabular data export for analysis
@@ -188,6 +183,9 @@
 - [x] **Registration page** - User signup form (UI only) ([apps/web/app/register/page.tsx](apps/web/app/register/page.tsx))
 - [x] **Calculator main page** - Scope selection interface ([apps/web/app/calculator/page.tsx](apps/web/app/calculator/page.tsx))
 - [x] **Scope 1 calculator** - Complete multi-step calculator with validation ([apps/web/app/calculator/scope-1/page.tsx](apps/web/app/calculator/scope-1/page.tsx))
+- [x] **Scope 2 calculator page** - Electricity, steam, heating/cooling calculator with FormWizard ([apps/web/app/calculator/scope-2/page.tsx](apps/web/app/calculator/scope-2/page.tsx))
+- [x] **Scope 3 calculator page** - Business travel, commuting, waste, and transportation calculator with FormWizard ([apps/web/app/calculator/scope-3/page.tsx](apps/web/app/calculator/scope-3/page.tsx))
+- [x] **Dashboard page** - Main overview with emission summaries, recent calculations, and quick actions ([apps/web/app/dashboard/page.tsx](apps/web/app/dashboard/page.tsx))
 
 ### ✅ Styling & Design System
 - [x] **Dark mode support** - Complete dark/light theme implementation ([apps/web/app/globals.css](apps/web/app/globals.css))
@@ -195,6 +193,17 @@
 - [x] **Typography system** - Consistent text sizing and hierarchy ([apps/web/app/globals.css](apps/web/app/globals.css))
 - [x] **Component styling** - Reusable styling patterns and utilities ([packages/ui/src/](packages/ui/src/))
 - [x] **Responsive breakpoints** - Mobile, tablet, desktop breakpoints ([apps/web/tailwind.config.js](apps/web/tailwind.config.js))
+
+### ✅ Database & Backend
+- [x] **Set up database connection** - Configure PostgreSQL connection using Kysely ([db/connection.ts](db/connection.ts))
+- [x] **Run initial migrations** - Execute Drizzle migrations to create tables ([db/migrations/0000_chief_venus.sql](db/migrations/0000_chief_venus.sql))
+- [x] **Core tRPC routers** - Created essential API endpoints for calculations, emission factors, and reports ([apps/web/server/api/routers/](apps/web/server/api/routers/))
+  - [x] Calculations router - Emissions calculation operations ([apps/web/server/api/routers/calculations.ts](apps/web/server/api/routers/calculations.ts))
+  - [x] Emission factors router - Standardized emission factors management ([apps/web/server/api/routers/emissionFactors.ts](apps/web/server/api/routers/emissionFactors.ts))
+  - [x] Reports router - Report generation and management ([apps/web/server/api/routers/reports.ts](apps/web/server/api/routers/reports.ts))
+
+### ✅ Report Generation
+- [x] **PDF report generation** - Implemented react-pdf for professional emission reports with comprehensive templates ([apps/web/app/reports/page.tsx](apps/web/app/reports/page.tsx), [apps/web/app/components/EmissionReportPDF.tsx](apps/web/app/components/EmissionReportPDF.tsx))
 
 ### ✅ tRPC Infrastructure
 - [x] **tRPC setup** - Server and client configuration ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts))
