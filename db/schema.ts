@@ -14,6 +14,7 @@ export const users = pgTable('users', {
   name: varchar('name', { length: 255 }).notNull(),
   emailVerified: timestamp('email_verified'),
   image: text('image'),
+  passwordHash: text('password_hash'), // for credentials authentication
   companyId: uuid('company_id').references(() => companies.id),
   role: varchar('role', { length: 50 }).notNull().default('user'), // user, admin, company_admin
   createdAt: timestamp('created_at').defaultNow().notNull(),
@@ -22,6 +23,35 @@ export const users = pgTable('users', {
   gdprConsent: boolean('gdpr_consent').notNull().default(false),
   gdprConsentDate: timestamp('gdpr_consent_date'),
   dataRetentionOptOut: boolean('data_retention_opt_out').notNull().default(false),
+});
+
+// Auth.js required tables
+export const accounts = pgTable('accounts', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  type: varchar('type', { length: 255 }).notNull(),
+  provider: varchar('provider', { length: 255 }).notNull(),
+  providerAccountId: varchar('provider_account_id', { length: 255 }).notNull(),
+  refresh_token: text('refresh_token'),
+  access_token: text('access_token'),
+  expires_at: integer('expires_at'),
+  token_type: varchar('token_type', { length: 255 }),
+  scope: varchar('scope', { length: 255 }),
+  id_token: text('id_token'),
+  session_state: varchar('session_state', { length: 255 }),
+});
+
+export const sessions = pgTable('sessions', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  sessionToken: varchar('session_token', { length: 255 }).notNull().unique(),
+  userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
+  expires: timestamp('expires').notNull(),
+});
+
+export const verificationTokens = pgTable('verification_tokens', {
+  identifier: varchar('identifier', { length: 255 }).notNull(),
+  token: varchar('token', { length: 255 }).notNull().unique(),
+  expires: timestamp('expires').notNull(),
 });
 
 // Companies table
@@ -136,6 +166,8 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   reports: many(reports),
   dataImports: many(dataImports),
   auditLogs: many(auditLog),
+  accounts: many(accounts),
+  sessions: many(sessions),
 }));
 
 export const companiesRelations = relations(companies, ({ many }) => ({
@@ -189,6 +221,21 @@ export const dataImportsRelations = relations(dataImports, ({ one }) => ({
 export const auditLogRelations = relations(auditLog, ({ one }) => ({
   user: one(users, {
     fields: [auditLog.userId],
+    references: [users.id],
+  }),
+}));
+
+// Auth.js table relations
+export const accountsRelations = relations(accounts, ({ one }) => ({
+  user: one(users, {
+    fields: [accounts.userId],
+    references: [users.id],
+  }),
+}));
+
+export const sessionsRelations = relations(sessions, ({ one }) => ({
+  user: one(users, {
+    fields: [sessions.userId],
     references: [users.id],
   }),
 })); 
