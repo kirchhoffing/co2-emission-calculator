@@ -1,6 +1,14 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
   "/calculator/page": "app/calculator/page.js",
+  "/calculator/scope-1/page": "app/calculator/scope-1/page.js",
   "/calculator/scope-2/page": "app/calculator/scope-2/page.js",
   "/calculator/scope-3/page": "app/calculator/scope-3/page.js",
-  "/page": "app/page.js"
+  "/dashboard/page": "app/dashboard/page.js",
+  "/page": "app/page.js",
+  "/login/page": "app/login/page.js",
+  "/register/page": "app/register/page.js",
+  "/reports/page": "app/reports/page.js"
 }

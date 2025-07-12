@@ -1,4 +1,4 @@
-import { pgTable, uuid, varchar, text, timestamp, decimal, integer, jsonb, boolean, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, varchar, text, timestamp, decimal, integer, jsonb, boolean, pgEnum, primaryKey } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 
 // Enums
@@ -42,17 +42,18 @@ export const accounts = pgTable('accounts', {
 });
 
 export const sessions = pgTable('sessions', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  sessionToken: varchar('session_token', { length: 255 }).notNull().unique(),
+  sessionToken: varchar('session_token', { length: 255 }).primaryKey(),
   userId: uuid('user_id').references(() => users.id, { onDelete: 'cascade' }).notNull(),
   expires: timestamp('expires').notNull(),
 });
 
 export const verificationTokens = pgTable('verification_tokens', {
   identifier: varchar('identifier', { length: 255 }).notNull(),
-  token: varchar('token', { length: 255 }).notNull().unique(),
+  token: varchar('token', { length: 255 }).notNull(),
   expires: timestamp('expires').notNull(),
-});
+}, (table) => ({
+  compositePk: primaryKey({ columns: [table.identifier, table.token] }),
+}));
 
 // Companies table
 export const companies = pgTable('companies', {
