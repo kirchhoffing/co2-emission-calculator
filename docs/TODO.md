@@ -26,11 +26,11 @@ Completed tasks have an "x" at the beginning.
   - [x] Emission factors router - Standardized emission factors management ([apps/web/server/api/routers/emissionFactors.ts](apps/web/server/api/routers/emissionFactors.ts))
   - [x] Reports router - Report generation and management ([apps/web/server/api/routers/reports.ts](apps/web/server/api/routers/reports.ts))
 - [x] **Add database integration to existing routers** - Connect calculations, emissionFactors, and reports routers to database ([apps/web/server/api/routers/calculations.ts](apps/web/server/api/routers/calculations.ts), [apps/web/server/api/routers/emissionFactors.ts](apps/web/server/api/routers/emissionFactors.ts), [apps/web/server/api/routers/reports.ts](apps/web/server/api/routers/reports.ts))
-- [ ] **Implement additional tRPC routers** - Create remaining API endpoints:
+- [x] **Implement additional tRPC routers** - Create remaining API endpoints:
   - [x] Companies router (CRUD operations) ([apps/web/server/api/routers/companies.ts](apps/web/server/api/routers/companies.ts))
   - [x] Users router (user management) ([apps/web/server/api/routers/users.ts](apps/web/server/api/routers/users.ts))
   - [x] Audit log router (compliance tracking) ([apps/web/server/api/routers/auditLog.ts](apps/web/server/api/routers/auditLog.ts))
-  - [ ] Data import router (CSV/Excel processing)
+  - [x] Data import router (CSV/Excel processing) ([apps/web/server/api/routers/dataImport.ts](apps/web/server/api/routers/dataImport.ts))
 - [ ] **Add data validation middleware** - Implement Zod validation for all inputs
 - [ ] **Create emission factors seeder** - Import standard emission factors from EPA/IPCC
 - [ ] **Implement audit logging** - Track all data changes for GDPR compliance
@@ -216,8 +216,8 @@ Completed tasks have an "x" at the beginning.
 
 ## Status Summary
 - **Total Tasks Identified**: 125 tasks
-- **Completion Percentage**: 37% (46/125 completed)
-- **Next Priority**: Implement data import router and add data validation middleware
-- **Critical Path**: Data import router → Data validation → Testing integration → Email system
+- **Completion Percentage**: 38% (47/125 completed)
+- **Next Priority**: Add data validation middleware and implement Zod validation for all inputs
+- **Critical Path**: Data validation → Testing integration → Email system
 
 This task tracker should be updated regularly as features are completed and new requirements are identified. 
