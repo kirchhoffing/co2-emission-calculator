@@ -68,6 +68,15 @@ co2-emission-calculator/
 └── docs/                     # Documentation and task tracking
 ```
 
+## 📊 Current Status
+
+- **Total Tasks**: 125 identified
+- **Completion**: 38% (48/125 completed)
+- **Version**: 1.0.0 (Development)
+- **Next Priorities**: Emission factors seeder, testing integration, email system
+
+See [`docs/TODO.md`](docs/TODO.md) for detailed task tracking and [`docs/OVERVIEW.md`](docs/OVERVIEW.md) for architecture guidelines.
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -139,67 +148,6 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-## 🧪 Testing
-
-### Unit Tests
-```powershell
-# Run all unit tests
-pnpm test
-
-# Run tests in watch mode
-pnpm test:watch
-
-# Run tests with coverage
-pnpm test:coverage
-```
-
-### End-to-End Tests
-```powershell
-# Install Playwright browsers (first time only)
-pnpm exec playwright install
-
-# Run E2E tests
-pnpm test:e2e
-
-# Run E2E tests in headed mode
-pnpm test:e2e:headed
-```
-
-### Database Tests
-```powershell
-# Test database operations
-pnpm test:db
-
-# Validate database schema
-cd db
-pnpm drizzle-kit check
-```
-
-## 🔧 Available Scripts
-
-### Development
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
-- `pnpm start` - Start production server
-- `pnpm lint` - Run ESLint
-- `pnpm format` - Format code with Prettier
-
-### Database
-- `pnpm db:generate` - Generate new migration
-- `pnpm db:migrate` - Run pending migrations
-- `pnpm db:studio` - Open Drizzle Studio
-- `pnpm db:seed` - Seed database with sample data
-
-### Testing
-- `pnpm test` - Run unit tests
-- `pnpm test:e2e` - Run end-to-end tests
-- `pnpm test:coverage` - Generate test coverage report
-
-### Development Tools
-- `pnpm type-check` - Run TypeScript type checking
-- `pnpm lint:fix` - Fix ESLint errors automatically
-- `pnpm clean` - Clean build artifacts
-
 ## 🌐 Application Routes
 
 ### Public Routes
@@ -226,53 +174,6 @@ pnpm drizzle-kit check
 - `/admin/audit-log` - System audit trail
 - `/admin/emission-factors` - Emission factor database management
 
-## 👥 Contributing
-
-We welcome contributions! Please follow these guidelines:
-
-### Commit Conventions
-We use [Conventional Commits](https://www.conventionalcommits.org/):
-```
-feat: add Scope 3 business travel calculator
-fix: resolve emission factor validation error
-docs: update API documentation
-style: format calculator components
-refactor: optimize database queries
-test: add unit tests for calculator engine
-```
-
-### Development Workflow
-
-1. **Fork and clone** the repository
-2. **Create a feature branch** from `main`
-   ```powershell
-   git checkout -b feat/your-feature-name
-   ```
-3. **Make your changes** following the project conventions:
-   - Use TypeScript for all code
-   - Follow the existing folder structure (`docs/OVERVIEW.md`)
-   - Add tests for new functionality
-   - Ensure accessibility compliance (WCAG 2.1 AA)
-
-4. **Run quality checks**
-   ```powershell
-   pnpm lint
-   pnpm format
-   pnpm type-check
-   pnpm test
-   ```
-
-5. **Commit your changes**
-   ```powershell
-   git add .
-   git commit -m "feat: add your feature description"
-   ```
-
-6. **Push and create a Pull Request**
-   ```powershell
-   git push origin feat/your-feature-name
-   ```
-
 ### Code Quality Standards
 
 - **TypeScript**: Strict mode enabled, no `any` types
@@ -281,28 +182,12 @@ test: add unit tests for calculator engine
 - **Husky**: Pre-commit hooks for linting and testing
 - **Testing**: Minimum 80% code coverage for new features
 
-### Branch Naming Convention
-- `feat/` - New features
-- `fix/` - Bug fixes  
-- `docs/` - Documentation updates
-- `refactor/` - Code refactoring
-- `test/` - Test additions/improvements
-
 ### Pull Request Guidelines
 - Use descriptive titles and clear descriptions
 - Reference related issues with `Fixes #123`
 - Include screenshots for UI changes
 - Ensure all tests pass and maintain coverage
 - Request review from at least one maintainer
-
-## 📊 Current Status
-
-- **Total Tasks**: 125 identified
-- **Completion**: 38% (48/125 completed)
-- **Version**: 1.0.0 (Development)
-- **Next Priorities**: Emission factors seeder, testing integration, email system
-
-See [`docs/TODO.md`](docs/TODO.md) for detailed task tracking and [`docs/OVERVIEW.md`](docs/OVERVIEW.md) for architecture guidelines.
 
 ## 🔒 Security & Compliance
 
@@ -316,13 +201,5 @@ See [`docs/TODO.md`](docs/TODO.md) for detailed task tracking and [`docs/OVERVIE
 ## 📄 License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
-## 🤝 Support
-
-- **Documentation**: Check [`docs/`](docs/) directory for detailed guides
-- **Issues**: Report bugs and request features via [GitHub Issues](https://github.com/your-org/co2-emission-calculator/issues)
-- **Discussions**: Join conversations in [GitHub Discussions](https://github.com/your-org/co2-emission-calculator/discussions)
-
----
 
 **Built with ❤️ for sustainable business practices and environmental compliance.**
