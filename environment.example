@@ -1,0 +1,29 @@
+# CO2 Emission Calculator Environment Variables
+# Copy this content to .env.local in the apps/web directory and fill in your actual values
+
+# ================================
+# DATABASE (Required)
+# ================================
+DATABASE_URL="postgresql://username:password@localhost:5432/co2_calculator_dev"
+
+# ================================
+# AUTHENTICATION (Required)
+# ================================
+NEXTAUTH_SECRET="your-secret-key-here-make-it-long-and-random"
+NEXTAUTH_URL="http://localhost:3000"
+
+# ================================
+# APPLICATION (Required)
+# ================================
+NODE_ENV="development"
+
+# ================================
+# EMAIL SERVICE (Optional)
+# ================================
+RESEND_API_KEY="re_xxxxxxxxxx"
+
+# ================================
+# FILE UPLOADS (Optional)
+# ================================
+UPLOADTHING_SECRET="sk_live_xxxxxxxxxx"
+UPLOADTHING_APP_ID="xxxxxxxxxx" 
