@@ -31,7 +31,7 @@ Completed tasks have an "x" at the beginning.
   - [x] Users router (user management) ([apps/web/server/api/routers/users.ts](apps/web/server/api/routers/users.ts))
   - [x] Audit log router (compliance tracking) ([apps/web/server/api/routers/auditLog.ts](apps/web/server/api/routers/auditLog.ts))
   - [x] Data import router (CSV/Excel processing) ([apps/web/server/api/routers/dataImport.ts](apps/web/server/api/routers/dataImport.ts))
-- [ ] **Add data validation middleware** - Implement Zod validation for all inputs
+- [x] **Add data validation middleware** - Implement Zod validation for all inputs ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts), [packages/core/src/types.ts](packages/core/src/types.ts))
 - [ ] **Create emission factors seeder** - Import standard emission factors from EPA/IPCC
 - [ ] **Implement audit logging** - Track all data changes for GDPR compliance
 
@@ -216,8 +216,21 @@ Completed tasks have an "x" at the beginning.
 
 ## Status Summary
 - **Total Tasks Identified**: 125 tasks
-- **Completion Percentage**: 38% (47/125 completed)
-- **Next Priority**: Add data validation middleware and implement Zod validation for all inputs
-- **Critical Path**: Data validation → Testing integration → Email system
+- **Completion Percentage**: 38% (48/125 completed)
+- **Next Priority**: Create emission factors seeder - Import standard emission factors from EPA/IPCC
+- **Critical Path**: Emission factors seeder → Testing integration → Email system
+
+## DONE - Recently Completed
+
+### 🛢️ Database & Backend
+- [x] **Add data validation middleware** - Implemented comprehensive Zod validation for all inputs with authentication middleware, rate limiting, input sanitization, and role-based access control ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts), [packages/core/src/types.ts](packages/core/src/types.ts))
+  - ✅ Enhanced validation middleware with XSS protection and input sanitization
+  - ✅ Rate limiting protection (100 requests per minute per user)
+  - ✅ Authentication middleware with database user verification
+  - ✅ Role-based access control (public, protected, admin, company procedures)
+  - ✅ Company-level data access enforcement
+  - ✅ Comprehensive API validation schemas for all major entities
+  - ✅ Updated calculations router with enhanced security and validation
+  - ✅ Audit logging integration for all sensitive operations
 
 This task tracker should be updated regularly as features are completed and new requirements are identified. 
