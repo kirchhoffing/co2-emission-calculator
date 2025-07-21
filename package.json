@@ -20,17 +20,20 @@
     "eslint-plugin-tailwindcss": "^3.18.0",
     "postcss": "^8.5.6",
     "prettier-plugin-tailwindcss": "^0.6.13",
-    "tailwindcss": "3"
+    "tailwindcss": "3",
+    "tsx": "^4.19.2"
   },
   "scripts": {
     "dev": "pnpm --filter ./apps/web dev",
     "build": "pnpm --filter ./apps/web build",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "seed-emission-factors": "tsx scripts/seed-emission-factors.ts"
   },
   "dependencies": {
     "next": "15.3.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "drizzle-orm": "^0.44.2"
   }
 }

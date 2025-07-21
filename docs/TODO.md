@@ -32,7 +32,7 @@ Completed tasks have an "x" at the beginning.
   - [x] Audit log router (compliance tracking) ([apps/web/server/api/routers/auditLog.ts](apps/web/server/api/routers/auditLog.ts))
   - [x] Data import router (CSV/Excel processing) ([apps/web/server/api/routers/dataImport.ts](apps/web/server/api/routers/dataImport.ts))
 - [x] **Add data validation middleware** - Implement Zod validation for all inputs ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts), [packages/core/src/types.ts](packages/core/src/types.ts))
-- [ ] **Create emission factors seeder** - Import standard emission factors from EPA/IPCC
+- [x] **Create emission factors seeder** - Import standard emission factors from EPA/IPCC ([scripts/seed-emission-factors.ts](scripts/seed-emission-factors.ts))
 - [ ] **Implement audit logging** - Track all data changes for GDPR compliance
 
 ### 📱 Core Application Pages
@@ -216,13 +216,27 @@ Completed tasks have an "x" at the beginning.
 
 ## Status Summary
 - **Total Tasks Identified**: 125 tasks
-- **Completion Percentage**: 38% (48/125 completed)
-- **Next Priority**: Create emission factors seeder - Import standard emission factors from EPA/IPCC
-- **Critical Path**: Emission factors seeder → Testing integration → Email system
+- **Completion Percentage**: 39% (49/125 completed)
+- **Next Priority**: Implement audit logging - Track all data changes for GDPR compliance
+- **Critical Path**: Audit logging → Testing integration → Email system
 
 ## DONE - Recently Completed
 
 ### 🛢️ Database & Backend
+- [x] **Create emission factors seeder** - Implemented comprehensive seeder script importing EPA 2025 GHG Emission Factors Hub and IPCC AR5 standard emission factors ([scripts/seed-emission-factors.ts](scripts/seed-emission-factors.ts))
+  - ✅ EPA 2025 stationary combustion factors (natural gas, coal types, petroleum products)
+  - ✅ EPA 2025 mobile combustion factors (gasoline, diesel, aviation fuels, alternative fuels)  
+  - ✅ EPA eGRID 2022 electricity emission factors (US average and regional factors)
+  - ✅ Steam and district heating factors for Scope 2 emissions
+  - ✅ Business travel factors for Scope 3 (air travel, ground transportation)
+  - ✅ Employee commuting factors for Scope 3 calculations
+  - ✅ Freight transportation factors (truck, rail, waterborne, air freight)
+  - ✅ Waste generation factors from EPA WARM model
+  - ✅ International factors for global operations (EU, UK, Canada, Australia)
+  - ✅ Batch insertion with progress tracking and comprehensive verification
+  - ✅ Full TypeScript implementation with proper error handling
+  - ✅ Ready-to-use script: `pnpm run seed-emission-factors`
+
 - [x] **Add data validation middleware** - Implemented comprehensive Zod validation for all inputs with authentication middleware, rate limiting, input sanitization, and role-based access control ([apps/web/server/api/trpc.ts](apps/web/server/api/trpc.ts), [packages/core/src/types.ts](packages/core/src/types.ts))
   - ✅ Enhanced validation middleware with XSS protection and input sanitization
   - ✅ Rate limiting protection (100 requests per minute per user)
