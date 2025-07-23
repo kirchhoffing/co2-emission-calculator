@@ -5,6 +5,7 @@ import * as schema from '../../../../../db/schema';
 import bcrypt from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
+import { createAuditLogger } from '../utils/auditLogger';
 
 /**
  * Authentication router for CO2 Emission Calculator
@@ -86,6 +87,25 @@ export const authRouter = createTRPCRouter({
             companyId: schema.users.companyId,
           });
 
+        // Log user registration for audit trail
+        const auditLogger = createAuditLogger({ userId: user.id });
+        await auditLogger.logRegistration(user.id, {
+          email: user.email,
+          role: user.role,
+          companyId: user.companyId,
+          gdprConsentGiven: gdprConsent,
+          hasCompany: !!companyName,
+        });
+
+        // Log company creation if applicable
+        if (companyId) {
+          await auditLogger.logCompany('create', companyId, {
+            name: companyName,
+            createdByUser: user.id,
+            reportingYear: new Date().getFullYear(),
+          });
+        }
+
         return {
           user,
           message: 'Account created successfully',
@@ -111,7 +131,7 @@ export const authRouter = createTRPCRouter({
         password: z.string(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const { email, password } = input;
 
       try {
@@ -122,7 +142,16 @@ export const authRouter = createTRPCRouter({
           .where(eq(schema.users.email, email))
           .limit(1);
 
+        const auditLogger = createAuditLogger(ctx);
+
         if (!user || !user.passwordHash) {
+          // Log failed login attempt
+          await auditLogger.logAuth('login', {
+            email,
+            success: false,
+            reason: 'user_not_found',
+          });
+          
           throw new TRPCError({
             code: 'UNAUTHORIZED',
             message: 'Invalid credentials',
@@ -133,11 +162,30 @@ export const authRouter = createTRPCRouter({
         const isValidPassword = await bcrypt.compare(password, user.passwordHash);
         
         if (!isValidPassword) {
+          // Log failed login attempt
+          await auditLogger.logAuth('login', {
+            email,
+            userId: user.id,
+            success: false,
+            reason: 'invalid_password',
+          });
+          
           throw new TRPCError({
             code: 'UNAUTHORIZED',
             message: 'Invalid credentials',
           });
         }
+
+        // Log successful login attempt
+        const auditLoggerWithUser = createAuditLogger({ 
+          ...ctx,
+          userId: user.id 
+        });
+        await auditLoggerWithUser.logAuth('login', {
+          email,
+          userId: user.id,
+          success: true,
+        });
 
         // Return user data (without password hash)
         return {

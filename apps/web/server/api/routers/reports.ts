@@ -4,6 +4,7 @@ import { db } from '../../../../../db/connection';
 import * as schema from '../../../../../db/schema';
 import { eq, and, desc, sum } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
+import { createAuditLogger } from '../utils/auditLogger';
 
 /**
  * Reports router handles CO2 emission report generation and management
@@ -103,7 +104,7 @@ export const reportsRouter = createTRPCRouter({
         isPublic: z.boolean().default(false),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
         // Calculate totals from existing calculations for the reporting period
         const calculationsInPeriod = await db
@@ -161,6 +162,24 @@ export const reportsRouter = createTRPCRouter({
           })
           .returning();
 
+        // Log report creation for audit
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logReport('create', report.id, {
+          companyId: input.companyId,
+          title: input.title,
+          format: input.format,
+          totalEmissions: totalEmissions,
+          scope1Total,
+          scope2Total,
+          scope3Total,
+          calculationsIncluded: calculationsInPeriod.length,
+          reportingPeriod: {
+            start: input.reportingPeriodStart,
+            end: input.reportingPeriodEnd,
+          },
+          isPublic: input.isPublic,
+        });
+
         return report;
       } catch (error) {
         if (error instanceof TRPCError) {
@@ -184,7 +203,7 @@ export const reportsRouter = createTRPCRouter({
         isPublic: z.boolean().optional(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
         const { id, ...updateData } = input;
 
@@ -204,6 +223,14 @@ export const reportsRouter = createTRPCRouter({
           });
         }
 
+        // Log report update for audit
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logReport('update', id, {
+          changes: updateData,
+          reportTitle: report.title,
+          companyId: report.companyId,
+        });
+
         return report;
       } catch (error) {
         if (error instanceof TRPCError) {
@@ -220,19 +247,42 @@ export const reportsRouter = createTRPCRouter({
   // Delete report
   delete: publicProcedure
     .input(z.string().uuid())
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
-        const [deleted] = await db
-          .delete(schema.reports)
+        // Get report details before deletion for audit logging
+        const [reportToDelete] = await db
+          .select({
+            id: schema.reports.id,
+            title: schema.reports.title,
+            companyId: schema.reports.companyId,
+            format: schema.reports.format,
+            totalEmissions: schema.reports.totalEmissions,
+          })
+          .from(schema.reports)
           .where(eq(schema.reports.id, input))
-          .returning({ id: schema.reports.id });
+          .limit(1);
 
-        if (!deleted) {
+        if (!reportToDelete) {
           throw new TRPCError({
             code: 'NOT_FOUND',
             message: 'Report not found',
           });
         }
+
+        const [deleted] = await db
+          .delete(schema.reports)
+          .where(eq(schema.reports.id, input))
+          .returning({ id: schema.reports.id });
+
+        // Log report deletion for audit
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logReport('delete', input, {
+          title: reportToDelete.title,
+          companyId: reportToDelete.companyId,
+          format: reportToDelete.format,
+          totalEmissions: reportToDelete.totalEmissions,
+          deletionType: 'hard_delete',
+        });
 
         return { success: true };
       } catch (error) {

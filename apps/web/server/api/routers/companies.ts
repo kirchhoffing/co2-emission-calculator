@@ -4,6 +4,7 @@ import { db } from '../../../../../db/connection';
 import * as schema from '../../../../../db/schema';
 import { eq, and, desc, ilike, count, isNotNull } from 'drizzle-orm';
 import { TRPCError } from '@trpc/server';
+import { createAuditLogger } from '../utils/auditLogger';
 
 /**
  * Companies router handles company management
@@ -118,7 +119,7 @@ export const companiesRouter = createTRPCRouter({
         reportingYear: z.number().int().min(1900).max(new Date().getFullYear()).optional(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
         const [company] = await db
           .insert(schema.companies)
@@ -131,6 +132,17 @@ export const companiesRouter = createTRPCRouter({
             reportingYear: input.reportingYear || new Date().getFullYear(),
           })
           .returning();
+
+        // Log company creation for audit
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logCompany('create', company.id, {
+          name: company.name,
+          industryType: company.industryType,
+          country: company.country,
+          employeeCount: company.employeeCount,
+          annualRevenue: company.annualRevenue,
+          reportingYear: company.reportingYear,
+        });
 
         return company;
       } catch (error) {
@@ -155,7 +167,7 @@ export const companiesRouter = createTRPCRouter({
         reportingYear: z.number().int().min(1900).max(new Date().getFullYear()).optional(),
       })
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
         const { id, ...updateData } = input;
 
@@ -179,6 +191,13 @@ export const companiesRouter = createTRPCRouter({
           });
         }
 
+        // Log company update for audit
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logCompany('update', id, {
+          changes: updateData,
+          companyName: company.name,
+        });
+
         return company;
       } catch (error) {
         if (error instanceof TRPCError) {
@@ -195,8 +214,27 @@ export const companiesRouter = createTRPCRouter({
   // Delete company
   delete: publicProcedure
     .input(z.string().uuid())
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       try {
+        // Get company details before deletion for audit logging
+        const [companyToDelete] = await db
+          .select({
+            id: schema.companies.id,
+            name: schema.companies.name,
+            industryType: schema.companies.industryType,
+            country: schema.companies.country,
+          })
+          .from(schema.companies)
+          .where(eq(schema.companies.id, input))
+          .limit(1);
+
+        if (!companyToDelete) {
+          throw new TRPCError({
+            code: 'NOT_FOUND',
+            message: 'Company not found',
+          });
+        }
+
         // Check if company has users or data
         const [userCount] = await db
           .select({
@@ -217,12 +255,15 @@ export const companiesRouter = createTRPCRouter({
           .where(eq(schema.companies.id, input))
           .returning({ id: schema.companies.id });
 
-        if (!deleted) {
-          throw new TRPCError({
-            code: 'NOT_FOUND',
-            message: 'Company not found',
-          });
-        }
+        // Log company deletion for audit
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logCompany('delete', input, {
+          name: companyToDelete.name,
+          industryType: companyToDelete.industryType,
+          country: companyToDelete.country,
+          deletionType: 'hard_delete',
+          hadUsers: userCount.count > 0,
+        });
 
         return { success: true };
       } catch (error) {

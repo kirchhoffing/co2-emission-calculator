@@ -11,6 +11,7 @@ import {
   CalculationStatus 
 } from '../../../../../packages/core/src/types';
 import { EmissionCalculator } from '../../../../../packages/core/src/calculator';
+import { createAuditLogger } from '../utils/auditLogger';
 
 /**
  * Calculations router handles CO2 emissions calculations
@@ -257,17 +258,19 @@ export const calculationsRouter = createTRPCRouter({
           .returning();
 
         // Log the calculation creation for audit
-        await db.insert(schema.auditLog).values({
-          userId: ctx.session.user.id,
-          action: 'create',
-          resourceType: 'calculation',
-          resourceId: newCalculation.id,
-          details: {
-            companyId: input.companyId,
-            scope: input.scope,
-            category: input.category,
-            subcategory: input.subcategory,
-            emissions: calculationResult.calculatedEmissions,
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logCalculation('create', newCalculation.id, {
+          companyId: input.companyId,
+          scope: input.scope,
+          category: input.category,
+          subcategory: input.subcategory,
+          activityData: input.activityData,
+          activityUnit: input.activityUnit,
+          calculatedEmissions: calculationResult.calculatedEmissions,
+          emissionFactorUsed: input.emissionFactorId ? 'standard' : 'custom',
+          reportingPeriod: {
+            start: input.reportingPeriodStart,
+            end: input.reportingPeriodEnd,
           },
         });
 
@@ -380,16 +383,15 @@ export const calculationsRouter = createTRPCRouter({
           .returning();
 
         // Log the update for audit
-        await db.insert(schema.auditLog).values({
-          userId: ctx.session.user.id,
-          action: 'update',
-          resourceType: 'calculation',
-          resourceId: input.id,
-          details: {
-            changes: input.data,
-            previousEmissions: existing[0].calculatedEmissions,
-            newEmissions: updatedEmissions,
-          },
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logCalculation('update', input.id, {
+          changes: input.data,
+          previousEmissions: existing[0].calculatedEmissions,
+          newEmissions: updatedEmissions,
+          companyId: existing[0].companyId,
+          scope: existing[0].scope,
+          category: existing[0].category,
+          recalculated: updatedEmissions !== existing[0].calculatedEmissions,
         });
 
         return updatedCalculation;
@@ -440,13 +442,17 @@ export const calculationsRouter = createTRPCRouter({
           .where(eq(schema.emissionsCalculations.id, input.id));
 
         // Log the deletion for audit
-        await db.insert(schema.auditLog).values({
-          userId: ctx.session.user.id,
-          action: 'delete',
-          resourceType: 'calculation',
-          resourceId: input.id,
-          details: {
-            deletedCalculation: existing[0],
+        const auditLogger = createAuditLogger(ctx);
+        await auditLogger.logCalculation('delete', input.id, {
+          companyId: existing[0].companyId,
+          scope: existing[0].scope,
+          category: existing[0].category,
+          subcategory: existing[0].subcategory,
+          calculatedEmissions: existing[0].calculatedEmissions,
+          deletionType: 'soft_delete',
+          reportingPeriod: {
+            start: existing[0].reportingPeriodStart,
+            end: existing[0].reportingPeriodEnd,
           },
         });
 
