@@ -57,11 +57,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             return null
           }
 
-          // Verify password (assuming we add password hash to users table)
+          // Verify password
           const isValidPassword = await bcrypt.compare(password, user[0].passwordHash || '')
           
           if (!isValidPassword) {
             return null
+          }
+
+          // Check if email is verified
+          if (!user[0].emailVerified) {
+            return null // Prevent login for unverified users
           }
 
           // Return user object that matches the expected session user type
@@ -72,6 +77,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             image: user[0].image,
             role: user[0].role,
             companyId: user[0].companyId,
+            emailVerified: user[0].emailVerified,
           }
         } catch (error) {
           console.error('Auth error:', error)
@@ -90,6 +96,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (user) {
         token.role = user.role
         token.companyId = user.companyId
+        token.emailVerified = user.emailVerified
       }
       return token
     },
@@ -99,6 +106,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.sub
         session.user.role = token.role as string
         session.user.companyId = token.companyId as string
+        session.user.emailVerified = token.emailVerified as Date | null
       }
       return session
     },

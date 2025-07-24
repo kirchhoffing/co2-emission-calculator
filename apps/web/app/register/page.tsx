@@ -24,7 +24,7 @@ export default function RegisterPage() {
     setError("");
 
     try {
-      await registerMutation.mutateAsync({
+      const result = await registerMutation.mutateAsync({
         name,
         email,
         password,
@@ -32,20 +32,24 @@ export default function RegisterPage() {
         gdprConsent,
       });
 
-      // Auto-login after successful registration
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
+      if (result.requiresVerification) {
+        // Show verification message instead of auto-login
+        router.push(`/verify-email?email=${encodeURIComponent(email)}`);
+      } else {
+        // Fallback: try to login if verification not required
+        const loginResult = await signIn("credentials", {
+          email,
+          password,
+          redirect: false,
+        });
 
-      if (result?.error) {
-        setError("Registration successful, but login failed. Please try logging in manually.");
-        return;
+        if (loginResult?.error) {
+          setError("Registration successful, but login failed. Please try logging in manually.");
+          return;
+        }
+
+        router.push("/dashboard");
       }
-
-      // Redirect to dashboard
-      router.push("/dashboard");
     } catch (error: any) {
       setError(error.message || "Registration failed. Please try again.");
     } finally {
